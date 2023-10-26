@@ -1,0 +1,48 @@
+<main>
+	<hr>
+	<div class="products">
+		<h1 class="products__title">Редагування товару</h1>
+		<div> <a href="/product-list" class="link">Повернутись назад</a></div>
+
+		<div class="products__item">
+			<div class="products__info"> Інформаця про товар</div>
+				{{#with data}}
+				<form method="POST" action="/product-edit">
+					<div>
+						<div class="products__list margin_top">
+							<div class="column">
+								<label for="name" class="form__label "> Назва товару</label>
+								<input type="text" name="name" class="products__input" value="{{name}}">
+							</div>
+							<div class="column">
+								<label for="price" class="form__label "> Ціна</label>
+								<input type="number" name="price" class="products__input" value="{{price}}">
+							</div>
+							<div class="column">
+								<label for="id" class="form__label "> ID</label>
+								<input type="number" name="id" class="products__input" value="{{id}}" readonly>
+							</div>
+						</div>
+						<div class="column margin_top">
+							<label for="description" class="form__label "> Короткий опис товару</label>
+							<input type="text" name="description" class="products__input text_overflow"
+								value="{{description}} ">
+							<label for="description" class="form__label color_light"> Відображується вкартці
+								товару</label>
+						</div>
+					</div>
+					<div class="products__action margin_top">
+						<div>
+							<button class="products__button color_blue">Зберегти оновлення</button>
+						</div>
+						<div>
+							<button class="products__button color_red">
+								<a href="/product-delete?id={{id}}" class="products__link ">Видалити товар</a></button>
+						</div>
+					</div>
+				</form>
+			{{/with}}
+		</div>
+
+	</div>
+</main>
