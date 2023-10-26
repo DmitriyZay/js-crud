@@ -23,18 +23,21 @@
 						<a href="/product-create" class="button__link link">Створити товар.</a>
 					</button>
 					<div>
-					{{!-- <form method="POST" action="/product-edit">
-						<button class="button color-green"> --}}
+						{{!-- <form method="POST" action="/product-edit">
+							<button class="button color-green"> --}}
 
-							{{!-- <a href="/product-edit?id={{id}}" class="button__link link ">Редагувати товар.</a> --}}
-							{{!-- <input type="number" name="id" class="products__input">
-						</button>
-					</form>
+								{{!-- <a href="/product-edit?id={{id}}" class="button__link link ">Редагувати товар.</a>
+								--}}
+								{{!-- <input type="number" name="id" class="products__input">
+							</button>
+						</form>
 					</div> --}}
 				</div>
 
 				<div class="products__list">
-					{{#each list}}
+					{{>product-card}}
+
+					{{!-- {{#each list}}
 					<div class="products__item">
 						<div class="products__name">
 							{{name}}
@@ -51,7 +54,7 @@
 								{{price}}$
 							</div>
 							<div>
-								<a href=" /product-edit?id={{id}}" class="products__edit link">Редагувати</a>
+								<a href="/product-edit?id={{id}}" class="products__edit link">Редагувати</a>
 							</div>
 
 						</div>
@@ -59,7 +62,7 @@
 					</div>
 
 
-					{{/each}}
+					{{/each}} --}}
 
 					{{/if}}
 					{{/with}}

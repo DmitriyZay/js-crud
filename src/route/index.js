@@ -55,63 +55,47 @@ class User {
 
 // ================================================================
 class Product {
-  static #list = []
-  constructor(name, price, description) {
-    this.id = Math.floor(Math.random() * 100000)
-    this.name = name
-    this.price = price
-    this.description = description
-    this.createDate = () => {
-      this.date = new Date().toISOString()
-    }
+	static #list = []
+	constructor(name, price, description) {
+	  this.name = name
+	  this.price = price
+	  this.description = description
+	  this.id = Math.floor(Math.random() * 100000)
+	  this.createDate = () => {
+		this.date = new Date().toISOString()
+	  }
+	}
+	static getList = () => this.#list
+	checkId = (id) => this.id === id
+	static add = (product) => {
+	  this.#list.push(product)
+	}
+	static getById = (id) =>
+	  this.#list.find((product) => product.id === id)
+	static deleteById = (id) => {
+	  const index = this.#list.findIndex(
+		(product) => product.id === id,
+	  )
+	  if (index !== -1) {
+		this.#list.splice(index, 1)
+		return true
+	  } else {
+		return false
+	  }
+	}
+	static updateById = (id, data) => {
+	  const product = this.getById(id)
+	  const { name}  = data;
+	  if (product) {
+		if (name) {
+		  product.name = name
+		}
+		return true
+	  } else {
+		return false
+	  }
+	}
   }
-
-  static add = (product) => {
-    this.#list.push(product)
-  }
-
-  static getList = () => this.#list
-
-  static getById = (id) =>
-    this.#list.find((product) => product.id === id)
-
-  static deleteById = (id) => {
-    const index = this.#list.findIndex(
-      (product) => product.id === id,
-    )
-    if (index !== -1) {
-      this.#list.splice(index, 1)
-      return true
-    } else {
-      return false
-    }
-  }
-
-  static updateById = (id, data) => {
-    const product = this.getById(id)
-    if (product) {
-      this.update(product, data)
-      return true
-    } else {
-      return false
-    }
-  }
-
-  static update = (
-    product,
-    { price, name, description },
-  ) => {
-    if (price) {
-      product.price = price
-    }
-    if (name) {
-      product.name = name
-    }
-    if (description) {
-      product.description = description
-    }
-  }
-}
 
 // ================================================================
 
@@ -300,7 +284,7 @@ router.get('/product-edit', function (req, res) {
 
 // =========================================================
 // ↙️ тут вводимо шлях (PATH) до сторінки
-router.post('product-edit', function (req, res) {
+router.post('/product-edit', function (req, res) {
   const { id, price, name, description } = req.body // важливо при post має бути body
 
   //const product=Product.getById(Number(id));
@@ -311,17 +295,16 @@ router.post('product-edit', function (req, res) {
     price,
     description,
   })
-
+  console.log(id)
+  console.log(product)
   if (product) {
     res.render('alert', {
       style: 'alert',
-      info: `Інформація про товар ${{ name }} з ${{id}} оновлена`,
+      info: `Інформація про товар ${name} з ${id} оновлена`,
     })
   } else {
-    // ↙️ cюди вводимо назву файлу з сontainer
-    res.render('alert', {
-      // вказуємо назву папки контейнера, в якій знаходяться наші стилі
-      style: 'alert',
+     res.render('alert', {
+          style: 'alert',
       info: 'Сталася помилка',
     })
   }
