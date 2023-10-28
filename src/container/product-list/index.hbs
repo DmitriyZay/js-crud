@@ -1,0 +1,76 @@
+<main>
+	<hr>
+	<div class="products">
+		<div class="products__title">
+			<h1>Список товарів</h1>
+			{{!-- <a href="/product-list">Повернутись назад</a> --}}
+
+		</div>
+
+		<section>
+			<div class="">
+
+
+
+				{{#with data.products}}
+				{{#if isEmpty}}
+				<button class="button">
+					<a href="/product-create" class="button__link link">Список пустий. Створити товар.</a>
+				</button>
+				{{else}}
+				<div>
+					<button class="button">
+						<a href="/product-create" class="button__link link">Створити товар.</a>
+					</button>
+					<div>
+						{{!-- <form method="POST" action="/product-edit">
+							<button class="button color-green"> --}}
+
+								{{!-- <a href="/product-edit?id={{id}}" class="button__link link ">Редагувати товар.</a>
+								--}}
+								{{!-- <input type="number" name="id" class="products__input">
+							</button>
+						</form>
+					</div> --}}
+				</div>
+
+				<div class="products__list">
+					{{>product-card}}
+
+					{{!-- {{#each list}}
+					<div class="products__item">
+						<div class="products__name">
+							{{name}}
+						</div>
+						<div class="products__description">
+							{{description}}
+						</div>
+						<div class="products__id">
+							id: {{id}}
+						</div>
+
+						<div class="item__line">
+							<div class="products__price">
+								{{price}}$
+							</div>
+							<div>
+								<a href="/product-edit?id={{id}}" class="products__edit link">Редагувати</a>
+							</div>
+
+						</div>
+
+					</div>
+
+
+					{{/each}} --}}
+
+					{{/if}}
+					{{/with}}
+
+				</div>
+			</div>
+		</section>
+	</div>
+
+
+</main>
