@@ -55,47 +55,54 @@ class User {
 
 // ================================================================
 class Product {
-	static #list = []
-	constructor(name, price, description) {
-	  this.name = name
-	  this.price = price
-	  this.description = description
-	  this.id = Math.floor(Math.random() * 100000)
-	  this.createDate = () => {
-		this.date = new Date().toISOString()
-	  }
-	}
-	static getList = () => this.#list
-	checkId = (id) => this.id === id
-	static add = (product) => {
-	  this.#list.push(product)
-	}
-	static getById = (id) =>
-	  this.#list.find((product) => product.id === id)
-	static deleteById = (id) => {
-	  const index = this.#list.findIndex(
-		(product) => product.id === id,
-	  )
-	  if (index !== -1) {
-		this.#list.splice(index, 1)
-		return true
-	  } else {
-		return false
-	  }
-	}
-	static updateById = (id, data) => {
-	  const product = this.getById(id)
-	  const { name}  = data;
-	  if (product) {
-		if (name) {
-		  product.name = name
-		}
-		return true
-	  } else {
-		return false
-	  }
-	}
+  static #list = []
+  constructor(name, price, description) {
+    this.name = name
+    this.price = price
+    this.description = description
+    this.id = Math.floor(Math.random() * 100000)
+    this.createDate = () => {
+      this.date = new Date().toISOString()
+    }
   }
+  static getList = () => this.#list
+  checkId = (id) => this.id === id
+  static add = (product) => {
+    this.#list.push(product)
+  }
+  static getById = (id) =>
+    this.#list.find((product) => product.id === id)
+
+  static deleteById = (id) => {
+    const index = this.#list.findIndex(
+      (product) => product.id === id,
+    )
+    if (index !== -1) {
+      this.#list.splice(index, 1)
+      return true
+    } else {
+      return false
+    }
+  }
+  static updateById = (id, data) => {
+    const product = this.getById(id)
+    const { price, name, description } = data
+    if (product) {
+      if (name) {
+        product.name = name
+      }
+	  if (price) {
+        product.price = price
+      }
+	  if (description) {
+        product.description = description
+      }
+      return true
+    } else {
+      return false
+    }
+  }
+}
 
 // ================================================================
 
@@ -303,8 +310,8 @@ router.post('/product-edit', function (req, res) {
       info: `Інформація про товар ${name} з ${id} оновлена`,
     })
   } else {
-     res.render('alert', {
-          style: 'alert',
+    res.render('alert', {
+      style: 'alert',
       info: 'Сталася помилка',
     })
   }

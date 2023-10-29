@@ -57,10 +57,14 @@ main {
 		display: flex;
 		flex-direction: column;
 		gap: s.space(2);
+		// max-width: 800px;
+		// text-overflow: ellipsis;
+		// white-space: break-spaces;
 		
 	}
 	&__description{
 		min-height: 70px;
+
 	}
 
 	&__label {

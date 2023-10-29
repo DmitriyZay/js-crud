@@ -18,23 +18,34 @@ padding: s.space(10);
 &__list{
 	display:grid;
 	grid-template-columns:1fr 1fr 1fr;
-	
+	grid-template-rows: 1fr;
 	justify-content:center;
 	gap: s.space(5);
 	margin-top: s.space(10);
 
 
 }
+&__frame{
+	max-width: 1000px;
+
+
+}
 &__item{
-	display: flex;
-	flex-direction: column;
+	// display: flex;
+	// flex-direction: column;
+display: grid;
+//grid-template-columns:300px;
+
+grid-template-rows: 0.5fr 1fr 0.5fr 0.5fr;
 	gap:s.space(5);
 	border: 1px solid s.color('light');
 	box-shadow: 0px 10px 15px 10px s.color('light');
 	padding: s.space(3);
-	max-width: 300px;
-	width: 100%;
+	 //max-width: 300px;
+	// width: 100%;
 	
+	max-height: 300px;
+	height: 100%;
 
 
 }
