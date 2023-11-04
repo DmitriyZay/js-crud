@@ -1,3 +1,13 @@
+<p> 
+	{{#with data}}
+	
+	{{#each this}}
+	test this{{this.firstname}}
+	{{/each}}
+	{{/with}}
+</p>
+
+
 <main class="main">
 	{{#with data}}
 	<form method="post" action="/purchase-submit?id={{id}}" class="form-card">
@@ -16,7 +26,7 @@
 		{{>divider}}
 		{{>heading title="Оформлення замовлення"}}
 
-		{{>field label='Ім`я' name='firstname' }}
+		{{>field label='Ім`я' name='firstname' value=data.id}}
 		{{>field label='Прізвище' name='lastname'}}
 
 		{{>field label='Телефон' name='phone'}}
@@ -26,7 +36,7 @@
 		{{>field label='Промо-код' name='promocode'}}
 		{{>divider}}
 
-		{{>field  value=totalPrice name='totalPrice' disabled=true}}
+		{{>field value=totalPrice name='totalPrice' disabled=true}}
 		{{>field value=productPrice name='productPrice' disabled=true}}
 		{{>field value=deliveryPrice name='deliveryPrice' disabled=true}}
 		{{>field value=amount name='amount' disabled=true}}
