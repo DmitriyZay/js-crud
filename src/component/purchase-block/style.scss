@@ -4,34 +4,9 @@
 @use '../../component/field/style.scss' as field;
 @use '../../component/divider/style.scss' as divider;
 @use '../../component/button/style.scss' as button;
-@use '../../component/purchase-block/style.scss' as purchase-block;
 
-.main{
-	display: flex;
-	flex-direction: column;
-	// gap: s.space(10);
-	padding: s.space(10);
-}
-.link{
-	text-decoration: none;
-		// transition: opacity 0.3s  ease;
-		transition: background-color 0.3s  ease;
-		cursor: pointer;
 
-	&:hover{
-		// opacity:0.7;
-		background-color:s.color(light-green);
-	}
 
-}
-.purchase-item{
-	display: grid;
-	grid-template-columns: 0.5fr 1fr 0.5fr 0.5fr;
-	margin-top: s.space(5);
-	margin-bottom: s.space(5);
-	padding-right: s.space(3);
-
-}
 .purchase-item__block{
 	
 	display: flex;
@@ -42,9 +17,7 @@
 
 
 }
-.center{
-	justify-content: center;
-}
+
 .title {
 	color: s.color(dark);
 	font-size: 16px;

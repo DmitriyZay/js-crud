@@ -83,8 +83,8 @@ class Purchase {
     return Purchase.#bonusAccount.get(email) || 0
   }
 
-  static calcBonusAmount=(value)=>{
-	return value*Purchase.#BONUS_FACTOR
+  static calcBonusAmount = (value) => {
+    return value * Purchase.#BONUS_FACTOR
   }
   static updateBonusBalance = (
     email,
@@ -117,19 +117,17 @@ class Purchase {
   static add = (...arg) => {
     const newPurchase = new Purchase(...arg)
     this.#list.push(newPurchase)
-    //newPurchase.product.amount = newPurchase.amount
+   
     return newPurchase
   }
   static getList = () => {
-    return Purchase.#list.reverse() //.map(({...})=>{...})
+    return Purchase.#list.reverse() 
   }
   static getById = (id) => {
-    return Purchase.#list.find((item) => item(id) === id)
+    return Purchase.#list.find((item) => item.id === id)
   }
   static updateById = (id, data) => {
-    // const purchase = Purchase.#list.find(
-    //   (item) => item.id === id,
-    // )
+
     const purchase = Purchase.getById(id)
     if (purchase) {
       if (data.firstname)
@@ -238,7 +236,7 @@ router.post('/purchase-create', function (req, res) {
   console.log(amount)
   const productPrice = product.price * amount
   const totalPrice = productPrice + Purchase.DELIVERY_PRICE
-  const bonus=Purchase.calcBonusAmount(totalPrice)
+  const bonus = Purchase.calcBonusAmount(totalPrice)
   // ================================================================
 
   res.render('purchase-create', {
@@ -260,7 +258,7 @@ router.post('/purchase-create', function (req, res) {
       productPrice,
       deliveryPrice: Purchase.DELIVERY_PRICE,
       amount,
-	  bonus,
+      bonus,
     },
   })
 })
@@ -276,12 +274,11 @@ router.post('/purchase-submit', function (req, res) {
     productPrice,
     deliveryPrice,
     amount,
-
     firstname,
     lastname,
     email,
     phone,
-	comment,
+    comment,
     promocode,
     bonus,
   } = req.body
@@ -308,13 +305,24 @@ router.post('/purchase-submit', function (req, res) {
       },
     })
   }
-  // console.log (totalPrice, productPrice, deliveryPrice,amount)
+  console.log(
+    totalPrice,
+    productPrice,
+    deliveryPrice,
+    amount,
+  )
   totalPrice = Number(totalPrice)
   productPrice = Number(productPrice)
   deliveryPrice = Number(deliveryPrice)
   amount = Number(amount)
   bonus = Number(bonus)
-  //console.log (totalPrice, productPrice, deliveryPrice,amount)
+  console.log(
+    totalPrice,
+    productPrice,
+    deliveryPrice,
+    amount,
+    bonus,
+  )
   if (
     isNaN(totalPrice) ||
     isNaN(productPrice) ||
@@ -376,7 +384,7 @@ router.post('/purchase-submit', function (req, res) {
       email,
       phone,
       promocode,
-	  comment,
+      comment,
     },
     product,
   )
@@ -395,21 +403,129 @@ router.post('/purchase-submit', function (req, res) {
 
 // ================================================================
 router.get('/purchase-list', function (req, res) {
-	// res.render генерує нам HTML сторінку
-	const id = Number(req.query.id)
-	// ↙️ cюди вводимо назву файлу з сontainer
-  const purchase= [...Purchase.getList()]
-  console.log (purchase)
-  console.log (id)
-  console.log ('purchase')
-	res.render('purchase-list', {
-	  style: 'purchase-list',
-	  data: {
-		purchase,
-	  },
-	})
-  })
-  // ================================================================
+  const list = Purchase.getList()
+  console.log('purchase-list:', list)
 
+  res.render('purchase-list', {
+    // вказуємо назву папки контейнера, в якій знаходяться наші стилі
+    style: 'purchase-list',
+    //   component: ['heading', 'purchase-item', 'divider'],
+    title: 'Мої замовлення',
+
+    data: {
+      purchases: {
+        list,
+      },
+    },
+  })
+  // ↑↑ сюди вводимо JSON дані
+})
+// ================================================================
+router.get('/purchase-info', function (req, res) {
+  // res.render генерує нам HTML сторінку
+  const id = Number(req.query.id)
+  const purchase = Purchase.getById(id)
+  // ↙️ cюди вводимо назву файлу з сontainer
+
+  res.render('purchase-info', {
+    style: 'purchase-info',
+    title: 'Інформація про замовлення',
+    data: {
+		id: purchase.id,
+		firstname: purchase.firstname,
+		lastname: purchase.lastname,
+		phone: purchase.phone,
+		email: purchase.email,
+		totalPrice:purchase.totalPrice,
+		productPrice:purchase.productPrice,
+		deliveryPrice:purchase.deliveryPrice,
+		amount:purchase.amount,
+		bonus:purchase.bonus,
+		comment:purchase.comment,
+		product_title:purchase.product.title,
+    },
+  })
+})
+
+
+
+router.get('/purchase-modify', function (req, res) {
+	
+	const id = Number(req.query.id)
+	console.log (id)
+	const purchase = Purchase.getById(id)
+ 	if (!purchase) {
+	  // Якщо товар з таким id не знайдено, відображаємо повідомлення про помилку
+	  res.render('alert', {
+		style: 'alert',
+		isError: true,
+		data: {
+			message: 'Помилка',
+			info: 'Замовлення з таким ID не знайдено',
+			href: `/`,
+		  },
+	  })
+	} else {
+	  res.render('purchase-modify', {
+		style: 'purchase-modify',
+		title: 'Зміна данних замовлення',
+ 		data: {
+		  id: purchase.id,
+		  firstname: purchase.firstname,
+		  lastname: purchase.lastname,
+		  phone: purchase.phone,
+		  email: purchase.email,
+		
+		},
+	  })
+	}
+  })
+  
+  // ==========================================================
+  router.post('/purchase-modify', function (req, res) {
+	const id = Number(req.query.id)
+	let { firstname, lastname, phone, email } =
+	  req.body
+  
+	const purchase = Purchase.getById(id)
+  
+	console.log(purchase)
+  
+	if (purchase) {
+	  const newPurchase = Purchase.updateById(id, {
+		firstname,
+		lastname,
+		phone,
+		email,
+		})
+  
+	  console.log(newPurchase)
+  
+	  // Якщо оновлення вдалося, відображаємо повідомлення про успіх
+	  if (newPurchase) {
+		res.render('alert', {
+		  style: 'alert',
+		    
+		  data: {
+			href: '/purchase-list',
+			message: 'Успішне виконання дії',
+			info: 'Товар успішно оновлено',
+		  },
+		})
+	  } else {
+		// Якщо оновлення не вдалося (наприклад, товару з таким id не існує),
+		// відображаємо повідомлення про помилку
+		res.render('alert', {
+		  style: 'alert',
+		   
+		  data: {
+			href: '/purchase-list',
+			message: 'Помилка',
+			info: 'Не вдалося оновити товар',
+		  },
+			
+	  })
+	}}
+  })
 // Підключаємо роутер до бек-енду
 module.exports = router

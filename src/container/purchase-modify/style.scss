@@ -7,40 +7,53 @@
 @use '../../component/purchase-block/style.scss' as purchase-block;
 
 .main{
+	width: 50%;
 	display: flex;
 	flex-direction: column;
-	// gap: s.space(10);
-	padding: s.space(10);
+	gap:s.space(5);
+	padding: s.space(5);
+	border: 1px solid s.color(light-dark);
+	border-radius: 10px;
+	margin-top: s.space(10);
+	margin-left: s.space(5);
+
 }
 .link{
 	text-decoration: none;
-		// transition: opacity 0.3s  ease;
-		transition: background-color 0.3s  ease;
+		transition: opacity 0.3s  ease;
+		// transition: background-color 0.3s  ease;
 		cursor: pointer;
 
 	&:hover{
-		// opacity:0.7;
-		background-color:s.color(light-green);
+		opacity:0.7;
+		// background-color:s.color(light-green);
 	}
 
 }
 .purchase-item{
-	display: grid;
-	grid-template-columns: 0.5fr 1fr 0.5fr 0.5fr;
+	// display: grid;
+	// grid-template-columns:  1fr 1fr;
+
 	margin-top: s.space(5);
 	margin-bottom: s.space(5);
 	padding-right: s.space(3);
 
 }
-.purchase-item__block{
-	
-	display: flex;
-	flex-direction: column;
+.purchase__block{
+		display: grid;
+	grid-template-columns:  1fr 1fr;
+	// display: flex;
+	// flex-direction: column;
 	// justify-content: center;
 	text-align: left;
-	gap: s.space(2);;
+	gap: s.space(3);;
+	margin-top: s.space(5);
 
 
+}
+.big_button{
+	width: 100%;
+	display: contents;
 }
 .center{
 	justify-content: center;
@@ -53,5 +66,15 @@
 	color:s.color(s-black);
 	font-size: 16px;
 	font-weight: bold;
+	
+}
+
+.form-card{
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	// gap:s.space(5);
+	// padding: s.space(5);
+	// border: none;
 	
 }
