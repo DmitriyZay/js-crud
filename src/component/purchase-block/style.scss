@@ -1,0 +1,30 @@
+@use '../../lib/service.scss' as s;
+@use '../../component/heading/style.scss' as heading;
+@use '../../component/purchase-product/style.scss' as purchaseProduct;
+@use '../../component/field/style.scss' as field;
+@use '../../component/divider/style.scss' as divider;
+@use '../../component/button/style.scss' as button;
+
+
+
+.purchase-item__block{
+	
+	display: flex;
+	flex-direction: column;
+	// justify-content: center;
+	text-align: left;
+	gap: s.space(2);;
+
+
+}
+
+.title {
+	color: s.color(dark);
+	font-size: 16px;
+}
+.text{
+	color:s.color(s-black);
+	font-size: 16px;
+	font-weight: bold;
+	
+}

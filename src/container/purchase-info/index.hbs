@@ -1,0 +1,45 @@
+<main class="main">
+	{{>heading title=title }}
+	{{#with data}}
+
+	<form method="get" action="/purchase-modify?id={{id}}" class="form-card">
+
+
+		<div class="purchase-item ">
+			{{>purchase-block title='ID:' text=id }}
+			<div class="purchase__block">
+				{{>purchase-block title='Ім`я:' text=firstname }}
+				{{>purchase-block title='Прізвище:' text=lastname }}
+			</div>
+			<div class="purchase__block">
+				{{>purchase-block title='Телефон:' text=phone }}
+				{{>purchase-block title='Електронна пошта:' text=email }}
+			</div>
+			<div class="purchase__block">
+				{{>purchase-block title='Назва товару:' text=product_title }}
+				{{>purchase-block title='Коментар:' text=comment }}
+			</div>
+			<div class="purchase__block">
+
+				{{>purchase-block title='Вартість товарів:' text=productPrice value='грн'}}
+				{{>purchase-block title='Вартість доставки:' text=deliveryPrice value='грн' }}
+			</div>
+			<div class="purchase__block">
+
+				{{>purchase-block title='Сума до сплати:' text=totalPrice value='грн' }}
+				{{>purchase-block title='Нараховані бонуси:' text=bonus value='грн' }}
+			</div>
+
+
+
+
+
+
+			<a href='/purchase-modify?id={{id}}' class="link ">
+				<div class="button center">Змінити дані</div>
+			</a>
+		</div>
+
+
+		{{/with}}
+</main>
