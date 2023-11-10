@@ -1,0 +1,35 @@
+<main class="main">
+	{{>heading title=title }}
+	{{#with data}}
+
+	<form method="post" action="/purchase-modify?id={{id}}" class="form-card">
+		{{!-- {{#each list}} --}}
+
+		<div class="purchase-item ">
+			{{>purchase-block title='ID:' text=id }}
+			<div class="purchase__block">
+				{{>field label='Ім`я' name='firstname' value=firstname}}
+				{{>field label='Прізвище' name='lastname' value=lastname}}
+
+
+			</div>
+			<div class="purchase__block">
+				{{>field label='Телефон' name='phone' value=phone}}
+				{{>field label='Пошта' name='email' value=email}}
+			</div>
+
+
+
+		</div>
+		{{!-- {{/each}} --}}
+		<div class="big_button">
+			{{>button text='Зберігти дані'}}
+		</div>
+
+	</form>
+
+
+
+
+	{{/with}}
+</main>
