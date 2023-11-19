@@ -1,3 +1,12 @@
+.button {
+  transition: opacity 0.6s;
+  transition: color 0.6s;
+}
+.button:hover {
+  opacity: 0.6;
+  color: yellow;
+}
+
 a {
   text-decoration: none;
   color: inherit;
@@ -31,7 +40,8 @@ a:hover {
 }
 
 .title--center {
-  text-align: center;
+  display: flex;
+  justify-content: center;
 }
 
 .track {
