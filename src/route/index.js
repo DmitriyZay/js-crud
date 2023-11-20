@@ -313,54 +313,39 @@ router.get('/', function (req, res) {
     },
   })
 })
-
-//======test===
-router.get('/spotify-track-add', function (req, res) {
+//=============================================
+router.get('/spotify-add', function (req, res) {
+	// res.render генерує нам HTML сторінку
 	const playlistId = Number(req.query.playlistId)
 	const playlist = Playlist.getById(playlistId)
-	const allTracks = Track.getList()
-	console.log(playlistId, playlist, allTracks)
-	res.render('spotify-track-add', {
-	  style: 'spotify-track-add',
+	const tracks = Track.getList()
+  
+	console.log(playlistId)
+	console.log(playlist.name)
+	console.log(tracks.name)
+  
+	// ↙️ cюди вводимо назву файлу з сontainer
+  
+	res.render('spotify-add', {
+	  style: 'spotify-add',
 	  data: {
 		playlistId: playlist.id,
-		tracks: allTracks,
-		// link: `/spotify-track-add?playlistId={playlistId}}&trackId=={id}}`,
+		tracks: tracks,
 	  },
 	})
   })
 
-// ================================================================
-
-router.get('/spotify-add', function (req, res) {
-  // res.render генерує нам HTML сторінку
-  const playlistId = Number(req.query.playlistId)
-  const playlist = Playlist.getById(playlistId)
-  const tracks = Track.getList()
-
-  console.log(playlistId)
-  console.log(playlist.name)
-  console.log(tracks.name)
-
-  // ↙️ cюди вводимо назву файлу з сontainer
-
-  res.render('spotify-add', {
-    style: 'spotify-add',
-    data: {
-      name: playlist.name,
-      playlistId: playlist.playlistId,
-      tracks:tracks,
-    },
-  })
-})
-
+//============================================
 
 router.post('/spotify-add', function (req, res) {
 	const playlistId = Number(req.body.playlistId)
 	const trackId = Number(req.body.trackId)
 	const playlist = Playlist.getById(playlistId)
-
+	
 	console.log ('playlistId:',playlistId)
+	console.log ('trackId:',trackId)
+	console.log ('playlist:',playlist)
+	
 	if (!playlist) {
 	  return res.render('alert', {
 		style: 'alert',
@@ -372,6 +357,8 @@ router.post('/spotify-add', function (req, res) {
 		},
 	  })
 	}
+
+	
 	const trackToAdd = Track.getList().find(
 	  (track) => track.id === trackId,
 	)
@@ -385,6 +372,10 @@ router.post('/spotify-add', function (req, res) {
 		},
 	  })
 	}
+
+
+	
+
 	playlist.tracks.push(trackToAdd)
 	res.render('spotify-playlist', {
 	  style: 'spotify-playlist',
